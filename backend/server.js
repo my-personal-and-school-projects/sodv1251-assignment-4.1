@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import blogEntryRouter from "./routes/blog-entry-route.js";
+import memberRouter from "./routes/member-router.js";
 
 dotenv.config();
 const app = express();
@@ -31,6 +32,9 @@ app.get("/new-blog-entry", (req, res) => {
 
 // blog entries route
 app.use("/blog-entries", blogEntryRouter);
+
+//member router
+app.use("/members", memberRouter);
 
 // Listen on port 5001
 const PORT = process.env.PORT || 5002;

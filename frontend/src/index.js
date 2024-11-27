@@ -4,13 +4,8 @@ import { getData } from "./utils/api-utility.js";
 const blogCardsWrapper = document.querySelector(".cards-wrapper");
 const newEntryButton = document.querySelector(".btn-new-entry");
 
-let isLogged = false;
-
-if (!isLogged) {
-  //newEntryButton.classList.remove("disabled");
-}
-
 document.addEventListener("DOMContentLoaded", () => {
+  getBlogEntries();
   console.log("Script loaded for", window.location.pathname);
 });
 
@@ -26,5 +21,3 @@ async function getBlogEntries() {
     console.error(error);
   }
 }
-
-getBlogEntries();

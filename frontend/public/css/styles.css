@@ -184,6 +184,10 @@ footer h3 {
   color: var(--white);
 }
 
+.signup-alternatives button:hover {
+  color: var(--orange);
+}
+
 .login-container a:hover {
   color: var(--white) !important;
 }

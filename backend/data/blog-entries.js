@@ -1,4 +1,4 @@
-import BlogEntry from "../models/BlogEntry.js";
+import BlogEntry from "../models/BlogEntries.js";
 
 const blogEntries = [
   new BlogEntry(

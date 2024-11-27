@@ -28,12 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function onInit() {
-  const loggedCustomer =
-    JSON.parse(localStorage.getItem("logedCustomer")) || "";
+  const loggedMember = JSON.parse(localStorage.getItem("logedMember")) || "";
 
-  if (loggedCustomer) {
-    document.querySelector(".user-name-label").textContent =
-      loggedCustomer.name;
+  if (loggedMember) {
+    document.querySelector(".user-name-label").textContent = loggedMember.name;
 
     if (btnLogout) {
       btnLogout.classList.remove("d-none");
@@ -63,7 +61,7 @@ function onInit() {
 }
 
 /**
- * Toggle to the sign in form if the customer already exists
+ * Toggle to the sign in form if the member already exists
  * @param {*} event
  */
 function toggleSignInForm(event) {
@@ -131,7 +129,7 @@ function validateLoginForm(data) {
 }
 
 /**
- * toggle to the register form if the customer does not have an account
+ * toggle to the register form if the member does not have an account
  * @param {*} event
  */
 function toggleRegisterForm(event) {
@@ -163,11 +161,11 @@ function handleRegistrationForm(event) {
 
   const formData = new FormData(event.target);
 
-  const customerData = Object.fromEntries(formData.entries());
-  console.log("customer data", customerData);
+  const memberData = Object.fromEntries(formData.entries());
+  console.log("member data", memberData);
 
-  const isValidForm = validateRegistrationForm(customerData);
-  const isValidPhone = validatePhone(customerData.phone);
+  const isValidForm = validateRegistrationForm(memberData);
+  const isValidPhone = validatePhone(memberData.phone);
   console.log(isValidPhone);
 
   if (isValidForm) {
@@ -177,23 +175,21 @@ function handleRegistrationForm(event) {
     } else if (isValidPhone) {
       document.querySelector("#invalid-phone").classList.remove("d-block");
 
-      const isSuccess = registerNewCustomers(
-        customerData.name,
-        customerData.address,
-        customerData.city,
-        customerData.email,
-        customerData.phone,
-        customerData.username,
-        customerData.password
+      const isSuccess = registerNewMembers(
+        memberData.name,
+        memberData.address,
+        memberData.city,
+        memberData.email,
+        memberData.phone,
+        memberData.username,
+        memberData.password
       );
 
       if (isSuccess) {
-        alert(
-          "Registration succesful. Sign in for a better shopping experience"
-        );
+        alert("Registration succesful. Sign in to participate in our blog");
         resetForms();
       } else {
-        alert("Customer already exists!!!");
+        alert("Member already exists!!!");
       }
     }
   }
@@ -215,7 +211,7 @@ function validateRegistrationForm(data) {
   return Boolean(isValid);
 }
 
-function registerNewCustomers(
+function registerNewMembers(
   name,
   address,
   city,
@@ -223,47 +219,85 @@ function registerNewCustomers(
   phone,
   username,
   password
-) {}
+) {
+  //Get members form localStorage
+  let members = JSON.parse(localStorage.getItem("members")) || [];
+
+  // Check if the member already exists in the local storage
+  let existingLocalMember = members.find(
+    (member) => member.username === username || member.email === email
+  );
+
+  // Check if the member already exists in the API data (membersList)
+  let existingAPIMember = membersList.find(
+    (member) => member.username === username || member.email === email
+  );
+
+  //if existent member
+  if (existingLocalMember || existingAPIMember) {
+    return false;
+  }
+
+  // If member does not exist
+  let newMember = {
+    id: members.length + membersList.length + 1,
+    name: name,
+    address: address,
+    city: city,
+    email: email,
+    phone: phone,
+    status: "Active",
+    username: username,
+    password: password,
+  };
+
+  members.push(newMember);
+
+  // Save updated members array to local storage
+  localStorage.setItem("members", JSON.stringify(members));
+
+  console.log("New member registered: ", newMember);
+  return true;
+}
 
 /**
- * verify customer and login
+ * verify member and login
  * @param {*} data
  */
 async function memberLogin(data) {
-  let loggedCustomer = JSON.parse(localStorage.getItem("logedCustomer")) || "";
-  let localCustomers = JSON.parse(localStorage.getItem("customers")) || [];
+  let loggedMember = JSON.parse(localStorage.getItem("logedMember")) || "";
+  let localMember = JSON.parse(localStorage.getItem("members")) || [];
 
-  //Get the customers data
+  //Get the members data
   membersList = await getData(MEMBERS_ENDPOINT);
 
-  // Check if the customer already exists in the data
-  const existingCustomer = membersList.find(
-    (customer) =>
-      customer.username === data.username && customer.password === data.password
+  // Check if the member already exists in the data
+  const existingMember = membersList.find(
+    (member) =>
+      member.username === data.username && member.password === data.password
   );
 
-  // Check if the customer already exists in the local storage
-  const existingLocalCustomer = localCustomers.find(
-    (customer) =>
-      customer.username === data.username && customer.password === data.password
+  // Check if the member already exists in the local storage
+  const existingLocalMember = localMember.find(
+    (member) =>
+      member.username === data.username && member.password === data.password
   );
 
-  //validate  customer
-  if (existingCustomer) {
-    let verifiedCustomer =
-      loggedCustomer.username === existingCustomer.username;
+  //validate member
+  if (existingMember) {
+    let verifiedMember = loggedMember.username === existingMember.username;
 
-    if (verifiedCustomer) {
+    if (verifiedMember) {
       document.querySelector(".user-name-label").textContent =
-        verifiedCustomer.name;
+        verifiedMember.name;
 
       if (btnLogout) {
         btnLogout.classList.remove("d-none");
       }
     } else {
-      localStorage.setItem("logedCustomer", JSON.stringify(existingCustomer));
+      localStorage.setItem("logedMember", JSON.stringify(existingMember));
       document.querySelector(".user-name-label").textContent =
-        existingCustomer.name;
+        existingMember.name;
 
       if (btnLogout) {
         btnLogout.classList.remove("d-none");
@@ -271,24 +305,20 @@ async function memberLogin(data) {
       resetForms();
       return true;
     }
-  } else if (existingLocalCustomer) {
-    let verifiedCustomer =
-      loggedCustomer.username === existingLocalCustomer.username;
+  } else if (existingLocalMember) {
+    let verifiedMember = loggedMember.username === existingLocalMember.username;
 
-    if (verifiedCustomer) {
+    if (verifiedMember) {
       document.querySelector(".user-name-label").textContent =
-        verifiedCustomer.name;
+        verifiedMember.name;
 
       if (btnLogout) {
         btnLogout.classList.remove("d-none");
       }
     } else {
-      localStorage.setItem(
-        "logedCustomer",
-        JSON.stringify(existingLocalCustomer)
-      );
+      localStorage.setItem("logedMember", JSON.stringify(existingLocalMember));
       document.querySelector(".user-name-label").textContent =
-        existingLocalCustomer.name;
+        existingLocalMember.name;
 
       if (btnLogout) {
         btnLogout.classList.remove("d-none");
@@ -314,7 +344,7 @@ function logOut() {
   btnLogout.addEventListener("click", (event) => {
     event.preventDefault();
 
-    localStorage.removeItem("logedCustomer");
+    localStorage.removeItem("logedMember");
     document.querySelector(".user-name-label").textContent = "";
 
     if (formsContainer) {

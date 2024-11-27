@@ -87,7 +87,7 @@
               >
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active fs-5" aria-current="page" href="#"
+                    <a class="nav-link active fs-5" aria-current="page" href="/"
                       >Home</a
                     >
                   </li>
@@ -102,9 +102,9 @@
                 class="icon-buttons-container d-flex gap-3 align-items-center"
               >
                 <div class="user-button d-flex gap-3 align-items-center">
-                  <button class="fs-5">
+                  <a href="#registration" class="btn fs-5 text-white">
                     <i class="fa fa-user" aria-hidden="true"></i> Login
-                  </button>
+                  </a>
                   <span class="user-name-label fw-bold"></span>
                   <button class="d-none btn btn-logout">Log out</button>
                 </div>
@@ -113,8 +113,297 @@
           </nav>
         </div>
       </header>
-      <main class="">
-        <div class="app">Home Page</div>
+      <main>
+        <div class="app">
+          <div class="app-content mt-4">
+            <section>
+              <div class="container bg-white p-3 events-list">
+                <div
+                  class="border-bottom border-secondary-subttle pb-3 d-flex align-items-center gap-5"
+                >
+                  <h5><i class="bi bi-journal-text"></i> Blogs</h5>
+                  <a href="/new-blog-entry" class="btn btn-dark disabled btn-new-entry"
+                    ><i class="bi bi-plus-circle-fill"></i> New Blog Entry</a
+                  >
+                </div>
+                <div class="cards-wrapper py-4"></div>
+              </div>
+            </section>
+          </div>
+          <!-- Forms -->
+          <section class="container py-5" id="registration">
+            <div class="registration-form container border">
+              <h2 class="text-center">
+                Blog Member <span id="form-type">Registration</span> Form
+              </h2>
+              <div class="text-center">
+                <p id="has-account">
+                  <span>Already have an account?</span>
+                  <a href="#registration" id="goto-signin"> Sign In</a>
+                  <a href="#registration" id="goto-register" hidden>Register</a>
+                </p>
+              </div>
+              <div>
+                <div
+                  id="existent-customer"
+                  class="invalid-feedback fs-3 gap-3 text-center text-white align-items-center justify-content-center"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                  <h5 id="message">Customer already exists!</h5>
+                </div>
+              </div>
+              <form id="customer-registration-form">
+                <div class="row row-cols-2">
+                  <div
+                    class="card-general-info col-6 d-flex flex-column gap-4 py-5"
+                  >
+                    <div
+                      class="form-group row-cols-2 d-flex align-items-center"
+                    >
+                      <label for="title" name="title" class="col-2"
+                        >Title:</label
+                      >
+                      <select class="form-select w-75" id="title">
+                        <option selected value="0">Select a Title</option>
+                        <option value="1">Mr</option>
+                        <option value="2">Sr</option>
+                        <option value="3">Ms</option>
+                      </select>
+                    </div>
+                    <div
+                      class="form-group row-cols-2 d-flex align-items-center"
+                    >
+                      <label for="name" class="col-2 form-label">Name:</label>
+                      <div class="d-block w-75">
+                        <input
+                          class="form-control w-100"
+                          id="name"
+                          name="name"
+                        />
+                        <div id="invalid-name" class="invalid-feedback">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          <span id="message">Invalid Name</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="form-group row-cols-2 d-flex align-items-center"
+                    >
+                      <label for="address" class="col-2 form-label"
+                        >Address:</label
+                      >
+                      <div class="d-block w-75">
+                        <input
+                          type="text"
+                          class="form-control w-100"
+                          name="address"
+                          id="address"
+                        />
+                        <div id="invalid-address" class="invalid-feedback">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          <span id="message">Invalid Address</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="form-group row-cols-2 d-flex align-items-center"
+                    >
+                      <label for="city" class="col-2">City:</label>
+                      <div class="d-block w-75">
+                        <select class="form-select w-100" id="city" name="city">
+                          <option selected value="0">Select a city</option>
+                          <option value="Calgary">Calgary</option>
+                          <option value="Red Deer">Red Deer</option>
+                          <option value="Okotoks">Okotoks</option>
+                          <option value="Edmonton">Edmonton</option>
+                          <option value="Airdrie">Airdrie</option>
+                          <option value="Cochrane">Cochrane</option>
+                          <option value="Lacombe">Lacombe</option>
+                          <option value="Fort SK">Fort SK</option>
+                        </select>
+                        <div id="invalid-city" class="invalid-feedback">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          <span id="message">Please select a City</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="card-contact-info col-6 d-flex flex-column gap-4 py-5"
+                  >
+                    <div
+                      class="form-group row-cols-2 d-flex align-items-center"
+                    >
+                      <label for="email" class="col-2 form-label">Email:</label>
+                      <div class="d-block w-75">
+                        <input
+                          type="email"
+                          class="form-control w-100"
+                          id="email"
+                          name="email"
+                        />
+                        <div
+                          id="invalid-email"
+                          class="invalid-feedback text-dark"
+                        >
+                          <i class="bi bi-exclamation-triangle"></i>
+                          <span id="message">Invalid Email</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="form-group row-cols-2 d-flex align-items-center"
+                    >
+                      <label for="phone" class="col-2 form-label">Phone:</label>
+                      <div class="d-block w-75">
+                        <input
+                          type="text"
+                          class="form-control w-100"
+                          id="phone"
+                          name="phone"
+                          placeholder="000-000-0000"
+                        />
+                        <div
+                          id="invalid-phone"
+                          class="invalid-feedback text-dark"
+                        >
+                          <i class="bi bi-exclamation-triangle"></i>
+                          <span id="message">Invalid phone number format</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="form-group row-cols-2 d-flex align-items-center"
+                    >
+                      <label for="username" class="col-2 form-label"
+                        >Username:</label
+                      >
+                      <div class="d-block w-75">
+                        <input
+                          type="text"
+                          class="form-control w-100"
+                          id="username"
+                          name="username"
+                        />
+                        <div
+                          id="invalid-username"
+                          class="invalid-feedback text-dark"
+                        >
+                          <i class="bi bi-exclamation-triangle"></i>
+                          <span id="message">Invalid Username</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="form-group row-cols-2 d-flex align-items-center"
+                    >
+                      <label for="password" class="col-2 form-label"
+                        >Password:</label
+                      >
+                      <div class="d-block w-75">
+                        <input
+                          type="password"
+                          class="form-control w-100"
+                          id="password"
+                          name="password"
+                        />
+                        <div
+                          id="invalid-password"
+                          class="invalid-feedback text-dark"
+                        >
+                          <i class="bi bi-exclamation-triangle"></i>
+                          <span id="message">Invalid Password</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center pt-4">
+                  <button type="submit" class="btn btn-submit px-4 py-2">
+                    Register
+                  </button>
+                </div>
+              </form>
+              <form class="pt-4" id="customer-signin-form" hidden>
+                <div
+                  class="signin-form-content flex-column w-50 p-5 container border"
+                >
+                  <p><strong>Please login into your account</strong></p>
+                  <div class="form-group w-100 d-flex flex-column gap-4">
+                    <div>
+                      <input
+                        type="text"
+                        class="form-control w-100"
+                        id="username"
+                        name="username"
+                        placeholder="Username"
+                      />
+                      <div
+                        id="invalid-login-username"
+                        class="invalid-feedback text-dark"
+                      >
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <span id="message">Invalid Username</span>
+                      </div>
+                    </div>
+                    <div>
+                      <input
+                        type="password"
+                        class="form-control w-100"
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                      />
+                      <div
+                        id="invalid-login-password"
+                        class="invalid-feedback text-dark"
+                      >
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <span id="message">Invalid Password</span>
+                      </div>
+                    </div>
+                    <div
+                      class="login-container form-group w-100 d-flex flex-column gap-2"
+                    >
+                      <button type="submit" class="btn border btn-submit">
+                        Log In
+                      </button>
+                      <a href="" class="text-center">Forgot password?</a>
+                    </div>
+                    <div class="text-center">
+                      <p class="text-dark">or sign up with:</p>
+                      <div class="signup-alternatives">
+                        <ul class="ps-0 d-flex gap-3 justify-content-center">
+                          <li>
+                            <button class="btn fs-3">
+                              <i class="bi bi-facebook"></i>
+                            </button>
+                          </li>
+                          <li>
+                            <button class="btn fs-3">
+                              <i class="bi bi-twitter-x"></i>
+                            </button>
+                          </li>
+                          <li>
+                            <button class="btn fs-3">
+                              <i class="bi bi-github"></i>
+                            </button>
+                          </li>
+                          <li>
+                            <button class="btn fs-3">
+                              <i class="bi bi-google"></i>
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group"></div>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
       </main>
       <footer class="mt-4">
         <div class="footer-container">

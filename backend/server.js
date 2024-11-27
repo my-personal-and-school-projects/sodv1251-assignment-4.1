@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
+import blogEntryRouter from "./routes/blog-entry-route.js";
 
 dotenv.config();
 const app = express();
@@ -13,18 +14,13 @@ if (process.env.NODE_ENV === "production") {
     "/components",
     express.static(path.join(process.cwd(), "frontend", "src", "components"))
   );
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(process.cwd(), "frontend", "public", "index.html")
-    );
-  });
 }
 
-// Route for the new blog entry
+// Route for the new blog entry page
 app.get("/new-blog-entry", (req, res) => {
   res.sendFile(
     path.resolve(
-      __dirname,
+      process.cwd(),
       "frontend",
       "public",
       "pages",
@@ -32,6 +28,9 @@ app.get("/new-blog-entry", (req, res) => {
     )
   );
 });
+
+// blog entries route
+app.use("/blog-entries", blogEntryRouter);
 
 // Listen on port 5001
 const PORT = process.env.PORT || 5002;

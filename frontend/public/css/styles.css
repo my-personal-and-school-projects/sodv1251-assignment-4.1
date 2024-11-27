@@ -4,7 +4,31 @@
   --light-gray: #e9e9e9;
   --mid-gray: #ddd;
   --dark-gray: #595a5c;
-  --light-purple: #a8c0ff;
+  --orange: #ff5733;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-size: 0.875rem;
+  background-color: #f5f5f5 !important;
+}
+
+.nav-bar-container {
+  display: flex;
+  height: 75px;
+}
+.navbar {
+  position: fixed !important;
+  top: 0;
+  opacity: 0.9;
+  z-index: 999;
+  background-image: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #2b2b2b 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .navbar {
@@ -43,7 +67,51 @@
   color: #f37335 !important;
 }
 
-/* Footer */
+/* ------------------ */
+/*      Main          */
+/* ------------------ */
+
+.app {
+  margin-top: 5rem;
+}
+
+.event-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.category-box {
+  border: 1px solid var(--orange);
+  border-radius: 5px;
+  padding: 0.25rem 1rem;
+  background-color: var(--orange);
+  color: var(--white);
+  text-decoration: none;
+  width: 6rem !important;
+}
+
+/* event details */
+
+.event-media img {
+  width: 100%;
+  object-fit: fill;
+}
+
+.event-image img {
+  border-radius: 8px;
+}
+
+.event-content {
+  box-sizing: border-box;
+}
+
+.event-content span {
+  font-size: 1rem;
+}
+
+/* ------------------ */
+/*      Footer        */
+/* ------------------ */
 
 footer {
   background-color: var(--black);
@@ -83,4 +151,85 @@ footer h3 {
   font-size: 21px;
   padding-bottom: 1rem;
   text-align: center;
-} 
+}
+
+/* ------------------ */
+/* Registration Form */
+/* ------------------ */
+
+.registration-form {
+  border-radius: 8px !important;
+  padding: 2rem !important;
+  background-color: var(--black);
+}
+
+.registration-form h2,
+.registration-form p {
+  color: var(--white);
+}
+
+#goto-signin:hover {
+  color: var(--white) !important;
+}
+
+.signin-form-content {
+  border-radius: 8px;
+}
+
+.signup-alternatives ul {
+  list-style: none;
+}
+
+.signup-alternatives button {
+  color: var(--white);
+}
+
+.login-container a:hover {
+  color: var(--white) !important;
+}
+
+.btn-login {
+  color: var(--white) !important;
+  font-weight: bold !important;
+}
+
+.btn-login:hover {
+  background-color: var(--white) !important;
+  color: var(--mid-blue) !important;
+}
+
+.card-general-info,
+.card-contact-info {
+  padding-left: 2rem !important;
+}
+
+.card-general-info {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: var(--white);
+}
+
+.card-contact-info {
+  color: var(--white);
+  border: 1px solid var(--white);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: transparent;
+}
+
+.card-general-info input,
+.card-general-info select,
+.card-contact-info select {
+  width: 75%;
+}
+
+.btn-submit {
+  border: 1.5px solid var(--white) !important;
+  color: var(--white) !important;
+  font-weight: bold !important;
+}
+
+.btn-submit:hover {
+  background-color: var(--white) !important;
+  color: var(--light-blue) !important;
+}
